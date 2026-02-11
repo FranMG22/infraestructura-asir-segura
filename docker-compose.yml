@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  # Servidor Web (Frontend)
+  nginx-frontend:
+    image: nginx:alpine
+    container_name: asir_web
+    ports:
+      - "80:80"
+    volumes:
+      - ./html:/usr/share/nginx/html
+    networks:
+      - asir_net
+
+  # Base de Datos
+  mariadb-backend:
+    image: mariadb:10.5
+    container_name: asir_db
+    environment:
+      MYSQL_ROOT_PASSWORD: admin_password_segura
+      MYSQL_DATABASE: asir_app
+    networks:
+      - asir_net
+
+  # Agente SIEM (Wazuh) - Requisito del PDF
+  wazuh-agent:
+    image: wazuh/wazuh-agent:latest
+    container_name: siem_agent
+    environment:
+      - WAZUH_MANAGER=10.0.0.50 # IP ficticia del manager
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro # Monitoriza Docker
+    networks:
+      - asir_net
+
+networks:
+  asir_net:
