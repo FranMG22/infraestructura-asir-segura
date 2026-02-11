@@ -1,0 +1,20 @@
+name: Despliegue CI/CD Seguro
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    
+    # Este paso valida que tu archivo docker-compose está bien escrito
+    - name: Verificar configuración Docker
+      run: docker-compose config
+      
+    # Simulamos el despliegue en los servidores de GitHub
+    - name: Desplegar Infraestructura
+      run: docker-compose up -d
+      
+    - name: Listar contenedores activos
+      run: docker ps -a
