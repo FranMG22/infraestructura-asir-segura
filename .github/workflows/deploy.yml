@@ -6,15 +6,15 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    
-    # Este paso valida que tu archivo docker-compose está bien escrito
-    - name: Verificar configuración Docker
-      run: docker-compose config
-      
-    # Simulamos el despliegue en los servidores de GitHub
-    - name: Desplegar Infraestructura
-      run: docker-compose up -d
-      
-    - name: Listar contenedores activos
-      run: docker ps -a
+      - name: Descargar código (Checkout)
+        uses: actions/checkout@v3
+
+      - name: Validar archivo Docker Compose
+        # Usamos 'docker compose' (v2) en lugar de 'docker-compose'
+        run: docker compose config
+
+      - name: Desplegar Infraestructura
+        run: docker compose up -d
+
+      - name: Verificar contenedores activos
+        run: docker compose ps
