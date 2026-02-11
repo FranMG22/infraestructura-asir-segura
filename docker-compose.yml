@@ -24,7 +24,7 @@ services:
 
   # Agente SIEM (Wazuh) - Requisito del PDF
 wazuh-agent:
-    image: wazuh/wazuh-agent:4.8.0  # Versión estable 4.8.0
+    image: wazuh/wazuh-manager:4.8.0  # Versión estable 4.8.0
     container_name: siem_agent
     environment:
       - WAZUH_MANAGER=10.0.0.50
