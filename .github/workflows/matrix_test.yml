@@ -1,33 +1,21 @@
-name: Test de Compatibilidad (Matrix)
+name: Test Matrix
 
-# Trigger: Se ejecuta al hacer push o MANUALMENTE (workflow_dispatch)
-on:
-  push:
-  [cite_start]workflow_dispatch: [cite: 283]
+on: [push]
 
 jobs:
   test-versions:
-    name: Prueba en Python ${{ matrix.python-version }}
+    name: Prueba Python ${{ matrix.python-version }}
     runs-on: ubuntu-latest
-
-    # AQUÍ ESTÁ LA MAGIA DE LA MATRIZ 
     strategy:
       matrix:
         python-version: ["3.9", "3.10", "3.11", "3.12"]
-        # GitHub creará 4 trabajos paralelos, uno por versión
-
     steps:
     - uses: actions/checkout@v3
-
-    - name: Configurar Python ${{ matrix.python-version }}
+    - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v4
       with:
         python-version: ${{ matrix.python-version }}
-
-    - name: Instalar dependencias
+    - name: Test
       run: |
         python -m pip install --upgrade pip
-        # Aquí instalaríamos wazuh-lib o lo que fuera necesario
-
-    - name: Ejecutar Script de Pruebas
-      run: python test_script.py
+        python test_script.py
