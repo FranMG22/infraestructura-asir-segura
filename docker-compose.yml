@@ -23,9 +23,10 @@ services:
       - asir_net
 
   # Agente SIEM (Wazuh) - CORREGIDO
-  # Fíjate que ahora está alineado (indentado) igual que 'nginx-frontend'
+  # Ahora usa la versión 4.14.2 (documentada oficialmente)
+  # Y está correctamente alineado dentro de 'services'
   wazuh-agent:
-    image: wazuh/wazuh-agent:4.8.0
+    image: wazuh/wazuh-agent:4.14.2
     container_name: siem_agent
     environment:
       - WAZUH_MANAGER=10.0.0.50
