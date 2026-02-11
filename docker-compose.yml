@@ -23,13 +23,13 @@ services:
       - asir_net
 
   # Agente SIEM (Wazuh) - Requisito del PDF
-  wazuh-agent:
-    image: wazuh/wazuh-agent:4.7.2
+wazuh-agent:
+    image: wazuh/wazuh-agent:4.8.0  # Versión estable 4.8.0
     container_name: siem_agent
     environment:
-      - WAZUH_MANAGER=10.0.0.50 # IP ficticia del manager
+      - WAZUH_MANAGER=10.0.0.50
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro # Monitoriza Docker
+      - /var/run/docker.sock:/var/run/docker.sock:ro
     networks:
       - asir_net
 
