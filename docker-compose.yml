@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  # Servidor Web (Frontend)
+  # Frontend: Servidor Web Nginx
   nginx-frontend:
     image: nginx:alpine
     container_name: asir_web
@@ -12,7 +12,7 @@ services:
     networks:
       - asir_net
 
-  # Base de Datos
+  # Backend: Base de datos MariaDB
   mariadb-backend:
     image: mariadb:10.5
     container_name: asir_db
@@ -22,9 +22,10 @@ services:
     networks:
       - asir_net
 
-  # Agente SIEM (Wazuh) - Requisito del PDF
-wazuh-agent:
-    image: wazuh/wazuh-manager:4.8.0  # Versión estable 4.8.0
+  # Agente SIEM (Wazuh) - CORREGIDO
+  # Fíjate que ahora está alineado (indentado) igual que 'nginx-frontend'
+  wazuh-agent:
+    image: wazuh/wazuh-agent:4.8.0
     container_name: siem_agent
     environment:
       - WAZUH_MANAGER=10.0.0.50
